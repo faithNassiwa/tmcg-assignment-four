@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1">
+    <tr><td>
+    Run ID </td><td>
+    Run Path </td><td>
+    Run Values </td>
+       </tr>
+
+
+    {% for step in steps %}
+        <tr><td>
+    {{step.run_id}}</td> <td>{{step.node}}</td>
+        <td>{% for v in val %}
+            {% if step.run_id == v.run_id %}
+                {{v.value}}
+                {% else %}
+                No values
+            {% endif  %}
+        {% endfor %}</td>
+       </tr>
+
+
+    {% endfor %}
+
+</table>
+<br/>
+
+</body>
+</html>

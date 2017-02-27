@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1">
+    <tr><td>
+    Group Name </td> <td>Number of contacts</td>
+       </tr>
+{% for group in groups %}
+
+
+        <tr><td>
+    {{group.name}}</td> <td>{{group.count}}</td>
+       </tr>
+
+
+
+{% endfor %}
+</table>
+</body>
+</html>
