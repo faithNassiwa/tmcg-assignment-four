@@ -77,12 +77,10 @@ WSGI_APPLICATION = 'rapidpro_sync.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'temba',
-        'USER': 'faith',
-        'HOST': '127.0.0.1',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+
 }
 
 
@@ -127,3 +125,5 @@ STATIC_URL = '/static/'
 
 HOST = 'http://localhost:8000'
 KEY = 'b1caed7765ac185c91289c4dea948fd665e82a32'
+
+

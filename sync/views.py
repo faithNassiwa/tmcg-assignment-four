@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from sync.models import Group, Step, Value
+from sync.models import Group, Step, Value, Run
 
 
 def index(request):
@@ -10,5 +10,6 @@ def index(request):
 def run(request):
     steps = Step.objects.all()
     val = Value.objects.all()
+
     return render(request, 'run.html', {'steps': steps, 'val': val})
 

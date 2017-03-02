@@ -31,9 +31,10 @@ class Group(models.Model):
 
 class Run(models.Model):
     run_id = models.IntegerField()
-    responded = models.BooleanField()
+    responded = models.BooleanField(default=False)
     created_on = models.DateTimeField()
     modified_on = models.DateTimeField()
+    exit_type = models.CharField(max_length=100, null=True, blank=True)
 
     @classmethod
     def add_runs(cls):
@@ -43,7 +44,7 @@ class Run(models.Model):
         for run in runs:
             if not cls.run_exists(run):
                 cls.objects.create(run_id=run.id, responded=run.responded, created_on=run.created_on,
-                                   modified_on=run.modified_on)
+                                   modified_on=run.modified_on, exit_type=run.exit_type)
                 r = Run.objects.get(run_id=run.id)
                 Step.add_steps(run=r, steps=run.path)
                 Value.add_values(run=r, values=run.values)
@@ -54,6 +55,10 @@ class Run(models.Model):
     @classmethod
     def run_exists(cls, run):
         return cls.objects.filter(run_id=run.id).exists()
+
+    @property
+    def completed_runs(self):
+        return Run.objects.filter(exit_type='completed').first()
 
     def __unicode__(self):
         return str(self.run_id)
@@ -77,7 +82,7 @@ class Step(models.Model):
 
 
 class Value(models.Model):
-    value = models.CharField(max_length=100, blank=False)
+    value = models.CharField(max_length=100, blank=True)
     run_id = models.ForeignKey(Run, on_delete=models.CASCADE)
 
     @classmethod
